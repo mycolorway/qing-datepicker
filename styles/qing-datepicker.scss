@@ -1,0 +1,118 @@
+
+.qing-datepicker {
+  position: relative;
+
+  .popover {
+    display: none;
+    border: 1px solid #dfdfdf;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &.active {
+      display: block;
+    }
+
+    .top-bar {
+      display: flex;
+      padding: 4px;
+      border-bottom: 1px dotted #dfdfdf;
+
+      .link-prev,
+      .link-next {
+        display: block;
+        font-size: 16px;
+        line-height: 16px;
+        color: #999;
+        padding: 5px 10px;
+        border-radius: 2px;
+        text-decoration: none;
+
+        &:hover {
+          background: #f3f3f3;
+        }
+      }
+
+      .title {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+
+        .link-year,
+        .link-month {
+          display: block;
+          line-height: 16px;
+          font-size: 16px;
+          color: #333;
+          padding: 5px 10px;
+          margin: 0 2px;
+          border-radius: 2px;
+          text-decoration: none;
+
+          &:hover {
+            background: #f3f3f3;
+          }
+        }
+      }
+    }
+
+    .select-view {
+      display: none;
+
+      &.active {
+        display: block;
+      }
+
+      .select-grid {
+        display: flex;
+        width: 210px;
+        padding: 4px;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+
+        .grid-item {
+          display: block;
+          width: 30px;
+          height: 30px;
+          line-height: 30px;
+          font-size: 14px;
+          text-align: center;
+          text-decoration: none;
+          color: #333;
+          box-sizing: border-box;
+
+          &.minor {
+            color: #cccccc;
+          }
+
+          &.current {
+            color: #ffa801;
+            font-weight: bold;
+          }
+
+          &:hover {
+            background: #f3f3f3;
+          }
+
+          &.selected {
+            background: #f9eed2;
+          }
+        }
+      }
+    }
+
+    .date-select .select-grid .link-day {
+      width: 30px;
+    }
+
+    .month-select .select-grid .link-month {
+      width: 70px;
+    }
+
+    .year-select .select-grid .link-year {
+      width: 70px;
+    }
+
+  }
+}

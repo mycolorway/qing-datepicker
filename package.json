@@ -1,0 +1,28 @@
+{
+  "name": "qing-datepicker",
+  "version": "0.0.1",
+  "description": "A simple datepicker component.",
+  "homepage": "http://mycolorway.github.io/qing-datepicker",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mycolorway/qing-datepicker.git"
+  },
+  "author": "farthinker <farthinker@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mycolorway/qing-datepicker/issues"
+  },
+  "main": "dist/qing-datepicker.js",
+  "scripts": {
+    "start": "gulp",
+    "test": "gulp test"
+  },
+  "dependencies": {
+    "jquery": "^3.1.0",
+    "moment": "^2.14.1",
+    "qing-module": "~1.0.0"
+  },
+  "devDependencies": {
+    "qing-build": "^0.x"
+  }
+}
