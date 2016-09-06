@@ -5,6 +5,7 @@
   .popover {
     display: none;
     border: 1px solid #dfdfdf;
+    background: #ffffff;
     position: absolute;
     top: 0;
     left: 0;
@@ -87,7 +88,6 @@
           }
 
           &.current {
-            color: #ffa801;
             font-weight: bold;
           }
 
@@ -96,7 +96,8 @@
           }
 
           &.selected {
-            background: #f9eed2;
+            background: #999999;
+            color: #ffffff;
           }
         }
       }

@@ -13,6 +13,7 @@
   .qing-datepicker .popover {
     display: none;
     border: 1px solid #dfdfdf;
+    background: #ffffff;
     position: absolute;
     top: 0;
     left: 0; }
@@ -75,12 +76,12 @@
           .qing-datepicker .popover .select-view .select-grid .grid-item.minor {
             color: #cccccc; }
           .qing-datepicker .popover .select-view .select-grid .grid-item.current {
-            color: #ffa801;
             font-weight: bold; }
           .qing-datepicker .popover .select-view .select-grid .grid-item:hover {
             background: #f3f3f3; }
           .qing-datepicker .popover .select-view .select-grid .grid-item.selected {
-            background: #f9eed2; }
+            background: #999999;
+            color: #ffffff; }
     .qing-datepicker .popover .date-select .select-grid .link-day {
       width: 30px; }
     .qing-datepicker .popover .month-select .select-grid .link-month {
