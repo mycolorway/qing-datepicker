@@ -1,5 +1,5 @@
 /**
- * qing-datepicker v1.0.0
+ * qing-datepicker v1.0.1
  * http://mycolorway.github.io/qing-datepicker
  *
  * Copyright Mycolorway Design
