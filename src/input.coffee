@@ -15,33 +15,35 @@ class Input extends QingModule
     @_bind()
 
   _render: ->
-    @el = $ '<input type="text" class="text-field" readonly>'
+    @el = $ '<div class="input">'
+    @textField = $ '<input type="text" class="text-field" readonly>'
       .attr 'placeholder', @opts.placeholder
-      .appendTo @wrapper
+      .appendTo @el
+    @el.appendTo @wrapper
 
   _bind: ->
-    @el.on 'click', (e) =>
+    @textField.on 'click', (e) =>
       @trigger 'click'
 
-    @el.on 'input', (e) =>
+    @textField.on 'input', (e) =>
       if @_inputTimer
         clearTimeout @_inputTimer
         @_inputTimer = null
 
       @_inputTimer = setTimeout =>
-        @trigger 'change', [@el.val()]
+        @trigger 'change', [@textField.val()]
       , 400
 
   setValue: (value) ->
-    @el.val value
+    @textField.val value
     value
 
   getValue: ->
-    @el.val()
+    @textField.val()
 
   setActive: (active) ->
     @active = active
-    @el.toggleClass 'active', active
+    @textField.toggleClass 'active', active
     @active
 
   destroy: ->

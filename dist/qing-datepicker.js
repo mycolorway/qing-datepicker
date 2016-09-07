@@ -39,40 +39,42 @@ Input = (function(superClass) {
   }
 
   Input.prototype._render = function() {
-    return this.el = $('<input type="text" class="text-field" readonly>').attr('placeholder', this.opts.placeholder).appendTo(this.wrapper);
+    this.el = $('<div class="input">');
+    this.textField = $('<input type="text" class="text-field" readonly>').attr('placeholder', this.opts.placeholder).appendTo(this.el);
+    return this.el.appendTo(this.wrapper);
   };
 
   Input.prototype._bind = function() {
-    this.el.on('click', (function(_this) {
+    this.textField.on('click', (function(_this) {
       return function(e) {
         return _this.trigger('click');
       };
     })(this));
-    return this.el.on('input', (function(_this) {
+    return this.textField.on('input', (function(_this) {
       return function(e) {
         if (_this._inputTimer) {
           clearTimeout(_this._inputTimer);
           _this._inputTimer = null;
         }
         return _this._inputTimer = setTimeout(function() {
-          return _this.trigger('change', [_this.el.val()]);
+          return _this.trigger('change', [_this.textField.val()]);
         }, 400);
       };
     })(this));
   };
 
   Input.prototype.setValue = function(value) {
-    this.el.val(value);
+    this.textField.val(value);
     return value;
   };
 
   Input.prototype.getValue = function() {
-    return this.el.val();
+    return this.textField.val();
   };
 
   Input.prototype.setActive = function(active) {
     this.active = active;
-    this.el.toggleClass('active', active);
+    this.textField.toggleClass('active', active);
     return this.active;
   };
 
@@ -102,8 +104,6 @@ Popover = (function(superClass) {
 
   Popover.opts = {
     wrapper: null,
-    prevArrow: '',
-    nextArrow: '',
     locales: null
   };
 
@@ -114,19 +114,13 @@ Popover = (function(superClass) {
     this.active = false;
     this._render();
     this.dateSelect = new DateSelect({
-      wrapper: this.el,
-      prevArrow: this.opts.prevArrow,
-      nextArrow: this.opts.nextArrow
+      wrapper: this.el
     });
     this.monthSelect = new MonthSelect({
-      wrapper: this.el,
-      prevArrow: this.opts.prevArrow,
-      nextArrow: this.opts.nextArrow
+      wrapper: this.el
     });
     this.yearSelect = new YearSelect({
       wrapper: this.el,
-      prevArrow: this.opts.prevArrow,
-      nextArrow: this.opts.nextArrow,
       locales: this.opts.locales
     });
     this._bind();
@@ -464,9 +458,7 @@ SelectView = (function(superClass) {
   extend(SelectView, superClass);
 
   SelectView.opts = {
-    wrapper: null,
-    prevArrow: null,
-    nextArrow: null
+    wrapper: null
   };
 
   function SelectView(opts) {
@@ -479,7 +471,7 @@ SelectView = (function(superClass) {
   }
 
   SelectView.prototype._render = function() {
-    this.el = $("<div class=\"select-view\">\n  <div class=\"top-bar\">\n    <a href=\"javascript:;\" class=\"link-prev\">" + this.opts.prevArrow + "</a>\n    <span class=\"title\">\n    </span>\n    <a href=\"javascript:;\" class=\"link-next\">" + this.opts.nextArrow + "</a>\n  </div>\n  <div class=\"select-grid\"></div>\n</div>").appendTo(this.wrapper);
+    this.el = $("<div class=\"select-view\">\n  <div class=\"top-bar\">\n    <a href=\"javascript:;\" class=\"link-prev\">&lt;</a>\n    <span class=\"title\">\n    </span>\n    <a href=\"javascript:;\" class=\"link-next\">&gt;</a>\n  </div>\n  <div class=\"select-grid\"></div>\n</div>").appendTo(this.wrapper);
     this.grid = this.el.find('.select-grid');
     return this.el;
   };
@@ -605,8 +597,7 @@ QingDatepicker = (function(superClass) {
     format: 'YYYY-MM-DD',
     displayFormat: 'LL',
     inputFormats: ['YYYY-M-D', 'M/D/YY', 'YYYY年M月D日', 'YYYY.M.D', 'YYYY/M/D'],
-    prevArrow: '&lt;',
-    nextArrow: '&gt;',
+    renderer: null,
     locales: {
       selectYear: 'Select Year'
     }
@@ -627,6 +618,9 @@ QingDatepicker = (function(superClass) {
     this._render();
     this._initChildComponents();
     this._bind();
+    if ($.isFunction(this.opts.renderer)) {
+      this.opts.renderer.call(this, this.wrapper, this);
+    }
     this.setDate(moment(this.el.val(), this.opts.format));
   }
 
@@ -642,8 +636,6 @@ QingDatepicker = (function(superClass) {
     });
     return this.popover = new Popover({
       wrapper: this.wrapper,
-      prevArrow: this.opts.prevArrow,
-      nextArrow: this.opts.nextArrow,
       locales: this.locales
     });
   };

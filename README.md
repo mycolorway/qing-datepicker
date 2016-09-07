@@ -57,13 +57,9 @@ Array, default formats are:
 
 When user directly input date string in text field, QingDatepicker will try to parse the string with these `inputFormats`.
 
-__prevArrow__
+__renderer__
 
-String, '&lt;' by default, specify string for left arrow in popover. Html string is allowed.
-
-__nextArrow__
-
-String, '&gt;' by default, specify string for right arrow in popover. Html string is allowed.
+Function, which will be called after component renders. This option can be used to customize html structure.
 
 __locales__
 

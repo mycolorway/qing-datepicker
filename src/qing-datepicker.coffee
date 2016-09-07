@@ -15,8 +15,7 @@ class QingDatepicker extends QingModule
       'YYYY.M.D'
       'YYYY/M/D'
     ]
-    prevArrow: '&lt;'
-    nextArrow: '&gt;'
+    renderer: null
     locales:
       selectYear: 'Select Year'
 
@@ -37,6 +36,9 @@ class QingDatepicker extends QingModule
     @_initChildComponents()
     @_bind()
 
+    if $.isFunction @opts.renderer
+      @opts.renderer.call @, @wrapper, @
+
     @setDate moment(@el.val(), @opts.format)
 
   _render: ->
@@ -54,8 +56,6 @@ class QingDatepicker extends QingModule
 
     @popover = new Popover
       wrapper: @wrapper
-      prevArrow: @opts.prevArrow
-      nextArrow: @opts.nextArrow
       locales: @locales
 
   _bind: ->

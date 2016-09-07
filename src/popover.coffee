@@ -6,8 +6,6 @@ class Popover extends QingModule
 
   @opts:
     wrapper: null
-    prevArrow: ''
-    nextArrow: ''
     locales: null
 
   constructor: (opts) ->
@@ -19,18 +17,12 @@ class Popover extends QingModule
 
     @dateSelect = new DateSelect
       wrapper: @el
-      prevArrow: @opts.prevArrow
-      nextArrow: @opts.nextArrow
 
     @monthSelect = new MonthSelect
       wrapper: @el
-      prevArrow: @opts.prevArrow
-      nextArrow: @opts.nextArrow
 
     @yearSelect = new YearSelect
       wrapper: @el
-      prevArrow: @opts.prevArrow
-      nextArrow: @opts.nextArrow
       locales: @opts.locales
 
     @_bind()

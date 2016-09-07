@@ -2,8 +2,6 @@ class SelectView extends QingModule
 
   @opts:
     wrapper: null
-    prevArrow: null
-    nextArrow: null
 
   constructor: (opts) ->
     super
@@ -18,10 +16,10 @@ class SelectView extends QingModule
     @el = $("""
       <div class="select-view">
         <div class="top-bar">
-          <a href="javascript:;" class="link-prev">#{@opts.prevArrow}</a>
+          <a href="javascript:;" class="link-prev">&lt;</a>
           <span class="title">
           </span>
-          <a href="javascript:;" class="link-next">#{@opts.nextArrow}</a>
+          <a href="javascript:;" class="link-next">&gt;</a>
         </div>
         <div class="select-grid"></div>
       </div>
