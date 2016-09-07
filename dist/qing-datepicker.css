@@ -37,7 +37,7 @@
         text-decoration: none; }
         .qing-datepicker .popover .top-bar .link-prev:hover,
         .qing-datepicker .popover .top-bar .link-next:hover {
-          background: #f3f3f3; }
+          background: #f6f6f6; }
       .qing-datepicker .popover .top-bar .title {
         flex-grow: 1;
         display: flex;
@@ -55,7 +55,7 @@
           text-decoration: none; }
           .qing-datepicker .popover .top-bar .title .link-year:hover,
           .qing-datepicker .popover .top-bar .title .link-month:hover {
-            background: #f3f3f3; }
+            background: #f6f6f6; }
     .qing-datepicker .popover .select-view {
       display: none; }
       .qing-datepicker .popover .select-view.active {
