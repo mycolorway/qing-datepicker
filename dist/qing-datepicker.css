@@ -114,7 +114,9 @@
       flex-wrap: wrap;
       margin: 4px 0 0 0; }
       .qing-datepicker .popover .month-select .select-grid .link-month {
-        width: 66px; }
+        width: 66px;
+        height: 30px;
+        line-height: 30px; }
     .qing-datepicker .popover .year-select .top-bar .title {
       display: block;
       line-height: 16px;
@@ -131,4 +133,6 @@
       flex-wrap: wrap;
       margin: 4px 0 0 0; }
       .qing-datepicker .popover .year-select .select-grid .link-year {
-        width: 66px; }
+        width: 66px;
+        height: 30px;
+        line-height: 30px; }
