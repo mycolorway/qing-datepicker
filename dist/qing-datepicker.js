@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-09-6
+ * Date: 2016-09-7
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -251,10 +251,31 @@ DateSelect = (function(superClass) {
   };
 
   DateSelect.prototype._renderGrid = function() {
-    var $day, date, endDate, weekdays;
     this.el.find('.link-year').text(this.month.format('YYYY'));
     this.el.find('.link-month').text(this.month.format('MMM'));
     this.grid.empty();
+    this._renderGridHead();
+    this._renderGridBody();
+    return this.grid;
+  };
+
+  DateSelect.prototype._renderGridHead = function() {
+    var $head;
+    $head = $('<div class="weekdays">');
+    $.each(moment.weekdaysMin(), (function(_this) {
+      return function(i, weekdayName) {
+        return $('<span>', {
+          "class": 'weekday',
+          text: weekdayName
+        }).appendTo($head);
+      };
+    })(this));
+    return this.grid.prepend($head);
+  };
+
+  DateSelect.prototype._renderGridBody = function() {
+    var $body, $day, date, endDate, weekdays;
+    $body = $('<div class="days">');
     date = this.month.clone().startOf('week');
     endDate = this.month.clone().endOf('month').endOf('week');
     while (date.isSameOrBefore(endDate)) {
@@ -274,9 +295,10 @@ DateSelect = (function(superClass) {
         $day.addClass('current');
       }
       weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
-      $day.addClass(weekdays[date.day()]).appendTo(this.grid);
+      $day.addClass(weekdays[date.day()]).appendTo($body);
       date.add(1, 'days');
     }
+    this.grid.append($body);
     return this.grid;
   };
 

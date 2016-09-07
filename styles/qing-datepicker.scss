@@ -4,6 +4,7 @@
 
   .popover {
     display: none;
+    padding: 0 6px 6px;
     border: 1px solid #dfdfdf;
     background: #ffffff;
     position: absolute;
@@ -65,18 +66,14 @@
       }
 
       .select-grid {
-        display: flex;
         width: 210px;
-        padding: 4px;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: wrap;
 
         .grid-item {
           display: block;
-          width: 30px;
-          height: 30px;
-          line-height: 30px;
+          width: 26px;
+          height: 26px;
+          margin: 2px;
+          line-height: 26px;
           font-size: 14px;
           text-align: center;
           text-decoration: none;
@@ -103,16 +100,63 @@
       }
     }
 
-    .date-select .select-grid .link-day {
-      width: 30px;
+    .date-select .select-grid {
+      display: block;
+
+      .weekdays {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        border-bottom: 1px dotted #dfdfdf;
+
+        span {
+          display: block;
+          width: 26px;
+          height: 26px;
+          margin: 2px;
+          line-height: 26px;
+          text-align: center;
+          color: #333;
+          font-size: 14px;
+        }
+      }
+
+      .days {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        margin: 4px 0 0 0;
+      }
+
+      .link-day {
+        width: 26px;
+      }
     }
 
-    .month-select .select-grid .link-month {
-      width: 70px;
+    .month-select .select-grid {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      margin: 4px 0 0 0;
+
+      .link-month {
+        width: 66px;
+      }
     }
 
-    .year-select .select-grid .link-year {
-      width: 70px;
+    .year-select .select-grid {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      margin: 4px 0 0 0;
+
+      .link-year {
+        width: 66px;
+      }
     }
 
   }

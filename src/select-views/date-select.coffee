@@ -20,7 +20,21 @@ class DateSelect extends SelectView
     @el.find('.link-month').text @month.format('MMM')
 
     @grid.empty()
+    @_renderGridHead()
+    @_renderGridBody()
+    @grid
 
+  _renderGridHead: ->
+    $head = $ '<div class="weekdays">'
+    $.each moment.weekdaysMin(), (i, weekdayName) =>
+      $ '<span>',
+        class: 'weekday'
+        text: weekdayName
+      .appendTo $head
+    @grid.prepend $head
+
+  _renderGridBody: ->
+    $body = $ '<div class="days">'
     date = @month.clone().startOf('week')
     endDate = @month.clone().endOf('month').endOf('week')
     while date.isSameOrBefore(endDate)
@@ -36,9 +50,10 @@ class DateSelect extends SelectView
 
       weekdays = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']
       $day.addClass weekdays[date.day()]
-        .appendTo @grid
+        .appendTo $body
       date.add 1, 'days'
 
+    @grid.append $body
     @grid
 
   _bind: ->
