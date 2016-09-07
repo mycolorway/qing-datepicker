@@ -37,15 +37,15 @@ class YearSelect extends SelectView
   _bind: ->
     super
 
-    @el.on 'mousedown', '.link-prev', (e) =>
+    @el.on 'click', '.link-prev', (e) =>
       @year -= 9
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-next', (e) =>
+    @el.on 'click', '.link-next', (e) =>
       @year += 9
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-year', (e) =>
+    @el.on 'click', '.link-year', (e) =>
       $link = $ e.currentTarget
       year = $link.data('year')
       @trigger 'select', [year]

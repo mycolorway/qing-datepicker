@@ -14,6 +14,7 @@ class Popover extends QingModule
     super
     @opts = $.extend {}, Popover.opts, @opts
     @wrapper = $ @opts.wrapper
+    @active = false
     @_render()
 
     @dateSelect = new DateSelect

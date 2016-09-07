@@ -59,21 +59,21 @@ class DateSelect extends SelectView
   _bind: ->
     super
 
-    @el.on 'mousedown', '.link-prev', (e) =>
+    @el.on 'click', '.link-prev', (e) =>
       @month.subtract 1, 'months'
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-next', (e) =>
+    @el.on 'click', '.link-next', (e) =>
       @month.add 1, 'months'
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-year', (e) =>
+    @el.on 'click', '.link-year', (e) =>
       @trigger 'yearClick', [@month.year()]
 
-    @el.on 'mousedown', '.link-month', (e) =>
+    @el.on 'click', '.link-month', (e) =>
       @trigger 'monthClick', [@month.clone()]
 
-    @el.on 'mousedown', '.link-day', (e) =>
+    @el.on 'click', '.link-day', (e) =>
       $link = $ e.currentTarget
       date = moment $link.data('date')
       @trigger 'select', [date]

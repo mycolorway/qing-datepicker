@@ -34,10 +34,6 @@ class SelectView extends QingModule
     # to be implemented
 
   _bind: ->
-    @el.on 'mousedown', (e) ->
-      e.preventDefault()
-      e.stopPropagation()
-      false
 
   setActive: (active) ->
     @active = active

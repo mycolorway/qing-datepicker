@@ -35,18 +35,18 @@ class MonthSelect extends SelectView
   _bind: ->
     super
 
-    @el.on 'mousedown', '.link-prev', (e) =>
+    @el.on 'click', '.link-prev', (e) =>
       @year -= 1
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-next', (e) =>
+    @el.on 'click', '.link-next', (e) =>
       @year += 1
       @_renderGrid()
 
-    @el.on 'mousedown', '.link-year', (e) =>
+    @el.on 'click', '.link-year', (e) =>
       @trigger 'yearClick', [@year]
 
-    @el.on 'mousedown', '.link-month', (e) =>
+    @el.on 'click', '.link-month', (e) =>
       $link = $ e.currentTarget
       month = moment $link.data('month')
       @trigger 'select', [month]

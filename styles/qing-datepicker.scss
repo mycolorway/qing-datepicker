@@ -2,6 +2,10 @@
 .qing-datepicker {
   position: relative;
 
+  .text-field {
+    cursor: pointer;
+  }
+
   .popover {
     display: none;
     padding: 0 6px 6px;

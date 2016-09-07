@@ -10,24 +10,16 @@ class Input extends QingModule
     @opts = $.extend {}, Input.opts, @opts
 
     @wrapper = $ @opts.wrapper
-    @focused = false
+    @active = false
     @_render()
     @_bind()
 
   _render: ->
-    @el = $ '<input type="text" class="text-field">'
+    @el = $ '<input type="text" class="text-field" readonly>'
       .attr 'placeholder', @opts.placeholder
       .appendTo @wrapper
 
   _bind: ->
-    @el.on 'focus', (e) =>
-      @focused = true
-      @trigger 'focus'
-
-    @el.on 'blur', (e) =>
-      @focused = false
-      @trigger 'blur'
-
     @el.on 'click', (e) =>
       @trigger 'click'
 
@@ -46,6 +38,11 @@ class Input extends QingModule
 
   getValue: ->
     @el.val()
+
+  setActive: (active) ->
+    @active = active
+    @el.toggleClass 'active', active
+    @active
 
   destroy: ->
     @el.remove()

@@ -10,6 +10,8 @@
  */
 .qing-datepicker {
   position: relative; }
+  .qing-datepicker .text-field {
+    cursor: pointer; }
   .qing-datepicker .popover {
     display: none;
     padding: 0 6px 6px;

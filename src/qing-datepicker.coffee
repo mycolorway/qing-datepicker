@@ -20,6 +20,8 @@ class QingDatepicker extends QingModule
     locales:
       selectYear: 'Select Year'
 
+  @count: 0
+
   constructor: (opts) ->
     super
 
@@ -30,6 +32,7 @@ class QingDatepicker extends QingModule
     @opts = $.extend {}, QingDatepicker.opts, @opts
     @inputFormats = @opts.inputFormats
     @locales = @opts.locales || QingDatepicker.locales
+    @id = ++ QingDatepicker.count
     @_render()
     @_initChildComponents()
     @_bind()
@@ -56,21 +59,21 @@ class QingDatepicker extends QingModule
       locales: @locales
 
   _bind: ->
-    @input.on 'focus', =>
-      @popover.setDate @date
-      @popover.setActive true
-
-    @input.on 'blur', =>
+    $(document).on "click.qing-datepicker-#{@id}", (e) =>
+      return if $.contains @wrapper[0], e.target
       @popover.setActive false
 
     @input.on 'click', =>
-      return if @popover.active
-      @popover.setDate @date
-      @popover.setActive true
+      if @popover.active
+        @popover.setActive false
+        @input.setActive false
+      else
+        @popover.setDate @date
+        @popover.setActive true
+        @input.setActive true
 
     @input.on 'change', (e, value) =>
       date = moment value, @inputFormats, true
-      console.log value, date
       if date.isValid()
         @setDate date
         @popover.setDate @date
@@ -82,6 +85,7 @@ class QingDatepicker extends QingModule
     @popover.on 'select', (e, date) =>
       @setDate date
       @popover.setActive false
+      @input.setActive false
 
   setDate: (date) ->
     if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
@@ -99,5 +103,6 @@ class QingDatepicker extends QingModule
       .show()
       .removeData 'qingDatepicker'
     @wrapper.remove()
+    $(document).off ".qing-datepicker-#{@id}"
 
 module.exports = QingDatepicker

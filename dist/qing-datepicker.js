@@ -33,28 +33,16 @@ Input = (function(superClass) {
     Input.__super__.constructor.apply(this, arguments);
     this.opts = $.extend({}, Input.opts, this.opts);
     this.wrapper = $(this.opts.wrapper);
-    this.focused = false;
+    this.active = false;
     this._render();
     this._bind();
   }
 
   Input.prototype._render = function() {
-    return this.el = $('<input type="text" class="text-field">').attr('placeholder', this.opts.placeholder).appendTo(this.wrapper);
+    return this.el = $('<input type="text" class="text-field" readonly>').attr('placeholder', this.opts.placeholder).appendTo(this.wrapper);
   };
 
   Input.prototype._bind = function() {
-    this.el.on('focus', (function(_this) {
-      return function(e) {
-        _this.focused = true;
-        return _this.trigger('focus');
-      };
-    })(this));
-    this.el.on('blur', (function(_this) {
-      return function(e) {
-        _this.focused = false;
-        return _this.trigger('blur');
-      };
-    })(this));
     this.el.on('click', (function(_this) {
       return function(e) {
         return _this.trigger('click');
@@ -80,6 +68,12 @@ Input = (function(superClass) {
 
   Input.prototype.getValue = function() {
     return this.el.val();
+  };
+
+  Input.prototype.setActive = function(active) {
+    this.active = active;
+    this.el.toggleClass('active', active);
+    return this.active;
   };
 
   Input.prototype.destroy = function() {
@@ -117,6 +111,7 @@ Popover = (function(superClass) {
     Popover.__super__.constructor.apply(this, arguments);
     this.opts = $.extend({}, Popover.opts, this.opts);
     this.wrapper = $(this.opts.wrapper);
+    this.active = false;
     this._render();
     this.dateSelect = new DateSelect({
       wrapper: this.el,
@@ -304,29 +299,29 @@ DateSelect = (function(superClass) {
 
   DateSelect.prototype._bind = function() {
     DateSelect.__super__._bind.apply(this, arguments);
-    this.el.on('mousedown', '.link-prev', (function(_this) {
+    this.el.on('click', '.link-prev', (function(_this) {
       return function(e) {
         _this.month.subtract(1, 'months');
         return _this._renderGrid();
       };
     })(this));
-    this.el.on('mousedown', '.link-next', (function(_this) {
+    this.el.on('click', '.link-next', (function(_this) {
       return function(e) {
         _this.month.add(1, 'months');
         return _this._renderGrid();
       };
     })(this));
-    this.el.on('mousedown', '.link-year', (function(_this) {
+    this.el.on('click', '.link-year', (function(_this) {
       return function(e) {
         return _this.trigger('yearClick', [_this.month.year()]);
       };
     })(this));
-    this.el.on('mousedown', '.link-month', (function(_this) {
+    this.el.on('click', '.link-month', (function(_this) {
       return function(e) {
         return _this.trigger('monthClick', [_this.month.clone()]);
       };
     })(this));
-    return this.el.on('mousedown', '.link-day', (function(_this) {
+    return this.el.on('click', '.link-day', (function(_this) {
       return function(e) {
         var $link, date;
         $link = $(e.currentTarget);
@@ -411,24 +406,24 @@ MonthSelect = (function(superClass) {
 
   MonthSelect.prototype._bind = function() {
     MonthSelect.__super__._bind.apply(this, arguments);
-    this.el.on('mousedown', '.link-prev', (function(_this) {
+    this.el.on('click', '.link-prev', (function(_this) {
       return function(e) {
         _this.year -= 1;
         return _this._renderGrid();
       };
     })(this));
-    this.el.on('mousedown', '.link-next', (function(_this) {
+    this.el.on('click', '.link-next', (function(_this) {
       return function(e) {
         _this.year += 1;
         return _this._renderGrid();
       };
     })(this));
-    this.el.on('mousedown', '.link-year', (function(_this) {
+    this.el.on('click', '.link-year', (function(_this) {
       return function(e) {
         return _this.trigger('yearClick', [_this.year]);
       };
     })(this));
-    return this.el.on('mousedown', '.link-month', (function(_this) {
+    return this.el.on('click', '.link-month', (function(_this) {
       return function(e) {
         var $link, month;
         $link = $(e.currentTarget);
@@ -491,13 +486,7 @@ SelectView = (function(superClass) {
 
   SelectView.prototype._renderGrid = function() {};
 
-  SelectView.prototype._bind = function() {
-    return this.el.on('mousedown', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      return false;
-    });
-  };
+  SelectView.prototype._bind = function() {};
 
   SelectView.prototype.setActive = function(active) {
     this.active = active;
@@ -563,19 +552,19 @@ YearSelect = (function(superClass) {
 
   YearSelect.prototype._bind = function() {
     YearSelect.__super__._bind.apply(this, arguments);
-    this.el.on('mousedown', '.link-prev', (function(_this) {
+    this.el.on('click', '.link-prev', (function(_this) {
       return function(e) {
         _this.year -= 9;
         return _this._renderGrid();
       };
     })(this));
-    this.el.on('mousedown', '.link-next', (function(_this) {
+    this.el.on('click', '.link-next', (function(_this) {
       return function(e) {
         _this.year += 9;
         return _this._renderGrid();
       };
     })(this));
-    return this.el.on('mousedown', '.link-year', (function(_this) {
+    return this.el.on('click', '.link-year', (function(_this) {
       return function(e) {
         var $link, year;
         $link = $(e.currentTarget);
@@ -623,6 +612,8 @@ QingDatepicker = (function(superClass) {
     }
   };
 
+  QingDatepicker.count = 0;
+
   function QingDatepicker(opts) {
     QingDatepicker.__super__.constructor.apply(this, arguments);
     this.el = $(this.opts.el);
@@ -632,6 +623,7 @@ QingDatepicker = (function(superClass) {
     this.opts = $.extend({}, QingDatepicker.opts, this.opts);
     this.inputFormats = this.opts.inputFormats;
     this.locales = this.opts.locales || QingDatepicker.locales;
+    this.id = ++QingDatepicker.count;
     this._render();
     this._initChildComponents();
     this._bind();
@@ -657,31 +649,30 @@ QingDatepicker = (function(superClass) {
   };
 
   QingDatepicker.prototype._bind = function() {
-    this.input.on('focus', (function(_this) {
-      return function() {
-        _this.popover.setDate(_this.date);
-        return _this.popover.setActive(true);
-      };
-    })(this));
-    this.input.on('blur', (function(_this) {
-      return function() {
+    $(document).on("click.qing-datepicker-" + this.id, (function(_this) {
+      return function(e) {
+        if ($.contains(_this.wrapper[0], e.target)) {
+          return;
+        }
         return _this.popover.setActive(false);
       };
     })(this));
     this.input.on('click', (function(_this) {
       return function() {
         if (_this.popover.active) {
-          return;
+          _this.popover.setActive(false);
+          return _this.input.setActive(false);
+        } else {
+          _this.popover.setDate(_this.date);
+          _this.popover.setActive(true);
+          return _this.input.setActive(true);
         }
-        _this.popover.setDate(_this.date);
-        return _this.popover.setActive(true);
       };
     })(this));
     this.input.on('change', (function(_this) {
       return function(e, value) {
         var date;
         date = moment(value, _this.inputFormats, true);
-        console.log(value, date);
         if (date.isValid()) {
           _this.setDate(date);
           return _this.popover.setDate(_this.date);
@@ -698,7 +689,8 @@ QingDatepicker = (function(superClass) {
     return this.popover.on('select', (function(_this) {
       return function(e, date) {
         _this.setDate(date);
-        return _this.popover.setActive(false);
+        _this.popover.setActive(false);
+        return _this.input.setActive(false);
       };
     })(this));
   };
@@ -719,7 +711,8 @@ QingDatepicker = (function(superClass) {
 
   QingDatepicker.prototype.destroy = function() {
     this.el.insertAfter(this.wrapper).show().removeData('qingDatepicker');
-    return this.wrapper.remove();
+    this.wrapper.remove();
+    return $(document).off(".qing-datepicker-" + this.id);
   };
 
   return QingDatepicker;
