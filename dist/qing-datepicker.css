@@ -24,7 +24,7 @@
       display: block; }
     .qing-datepicker .popover .top-bar {
       display: flex;
-      padding: 4px;
+      padding: 6px 4px;
       border-bottom: 1px dotted #dfdfdf; }
       .qing-datepicker .popover .top-bar .link-prev,
       .qing-datepicker .popover .top-bar .link-next {

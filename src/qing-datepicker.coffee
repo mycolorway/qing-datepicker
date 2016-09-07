@@ -16,6 +16,7 @@ class QingDatepicker extends QingModule
       'YYYY/M/D'
     ]
     renderer: null
+    popoverOffset: 6
     locales:
       selectYear: 'Select Year'
 
@@ -80,7 +81,7 @@ class QingDatepicker extends QingModule
 
     @popover.on 'show', (e) =>
       @popover.setPosition
-        top: @input.el.outerHeight() + 2
+        top: @input.el.outerHeight() + @opts.popoverOffset
 
     @popover.on 'select', (e, date) =>
       @setDate date

@@ -61,6 +61,10 @@ __renderer__
 
 Function, which will be called after component renders. This option can be used to customize html structure.
 
+__popoverOffset__
+
+Number, default is 6, specify popover's offset to the text field.
+
 __locales__
 
 Hash, specify locale config, default config is:

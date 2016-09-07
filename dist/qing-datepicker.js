@@ -598,6 +598,7 @@ QingDatepicker = (function(superClass) {
     displayFormat: 'LL',
     inputFormats: ['YYYY-M-D', 'M/D/YY', 'YYYY年M月D日', 'YYYY.M.D', 'YYYY/M/D'],
     renderer: null,
+    popoverOffset: 6,
     locales: {
       selectYear: 'Select Year'
     }
@@ -674,7 +675,7 @@ QingDatepicker = (function(superClass) {
     this.popover.on('show', (function(_this) {
       return function(e) {
         return _this.popover.setPosition({
-          top: _this.input.el.outerHeight() + 2
+          top: _this.input.el.outerHeight() + _this.opts.popoverOffset
         });
       };
     })(this));
