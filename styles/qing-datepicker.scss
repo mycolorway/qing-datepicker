@@ -29,7 +29,7 @@
         display: block;
         font-size: 16px;
         line-height: 16px;
-        color: #999;
+        color: #9b9b9b;
         padding: 5px 10px;
         border-radius: 2px;
         text-decoration: none;
@@ -48,8 +48,9 @@
         .link-month {
           display: block;
           line-height: 16px;
-          font-size: 16px;
           color: #333;
+          font-weight: bold;
+          font-size: 16px;
           padding: 5px 10px;
           margin: 0 2px;
           border-radius: 2px;
@@ -78,10 +79,10 @@
           height: 26px;
           margin: 2px;
           line-height: 26px;
+          color: #333;
           font-size: 14px;
           text-align: center;
           text-decoration: none;
-          color: #333;
           box-sizing: border-box;
 
           &.minor {
@@ -93,11 +94,11 @@
           }
 
           &:hover {
-            background: #f3f3f3;
+            background: #f6f6f6;
           }
 
           &.selected {
-            background: #999999;
+            background: #4a4a4a;
             color: #ffffff;
           }
         }
@@ -151,15 +152,28 @@
       }
     }
 
-    .year-select .select-grid {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-      flex-wrap: wrap;
-      margin: 4px 0 0 0;
+    .year-select {
+      .top-bar .title {
+        display: block;
+        line-height: 16px;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
+        text-align: center;
+        padding: 5px 10px;
+        margin: 0 2px;
+      }
 
-      .link-year {
-        width: 66px;
+      .select-grid {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        margin: 4px 0 0 0;
+
+        .link-year {
+          width: 66px;
+        }
       }
     }
 
