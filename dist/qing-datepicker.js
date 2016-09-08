@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-09-7
+ * Date: 2016-09-8
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -647,7 +647,8 @@ QingDatepicker = (function(superClass) {
         if ($.contains(_this.wrapper[0], e.target)) {
           return;
         }
-        return _this.popover.setActive(false);
+        _this.popover.setActive(false);
+        return null;
       };
     })(this));
     this.input.on('click', (function(_this) {

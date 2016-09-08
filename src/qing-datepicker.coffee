@@ -63,6 +63,7 @@ class QingDatepicker extends QingModule
     $(document).on "click.qing-datepicker-#{@id}", (e) =>
       return if $.contains @wrapper[0], e.target
       @popover.setActive false
+      null
 
     @input.on 'click', =>
       if @popover.active
