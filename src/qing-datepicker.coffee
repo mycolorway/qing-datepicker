@@ -29,6 +29,9 @@ class QingDatepicker extends QingModule
     unless @el.length > 0
       throw new Error 'QingDatepicker: option el is required'
 
+    if (initialized = @el.data('qingDatepicker'))
+      return initialized
+
     @opts = $.extend {}, QingDatepicker.opts, @opts
     @inputFormats = @opts.inputFormats
     @locales = @opts.locales || QingDatepicker.locales
