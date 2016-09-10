@@ -32,7 +32,7 @@ class QingDatepicker extends QingModule
     if (initialized = @el.data('qingDatepicker'))
       return initialized
 
-    @opts = $.extend {}, QingDatepicker.opts, @opts
+    $.extend @opts, QingDatepicker.opts, opts
     @inputFormats = @opts.inputFormats
     @locales = @opts.locales || QingDatepicker.locales
     @id = ++ QingDatepicker.count
