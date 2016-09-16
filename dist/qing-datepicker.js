@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-09-10
+ * Date: 2016-09-16
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -590,6 +590,8 @@ Popover = require('./popover.coffee');
 
 QingDatepicker = (function(superClass) {
   extend(QingDatepicker, superClass);
+
+  QingDatepicker.name = 'QingDatepicker';
 
   QingDatepicker.opts = {
     el: null,

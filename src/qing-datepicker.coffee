@@ -3,6 +3,8 @@ Popover = require './popover.coffee'
 
 class QingDatepicker extends QingModule
 
+  @name: 'QingDatepicker'
+
   @opts:
     el: null
     placeholder: ''
