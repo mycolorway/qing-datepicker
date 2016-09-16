@@ -46,6 +46,7 @@ class QingDatepicker extends QingModule
       @opts.renderer.call @, @wrapper, @
 
     @setDate moment(@el.val(), @opts.format)
+    @disable() if @el.prop('disabled')
 
   _render: ->
     @wrapper = $ '<div class="qing-datepicker"></div>'
@@ -104,6 +105,14 @@ class QingDatepicker extends QingModule
 
   getDate: ->
     @date
+
+  disable: ->
+    @el.prop 'disabled', true
+    @input.setDisabled true
+
+  enable: ->
+    @el.prop 'disabled', false
+    @input.setDisabled false
 
   destroy: ->
     @el.insertAfter @wrapper

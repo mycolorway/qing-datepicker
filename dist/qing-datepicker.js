@@ -47,10 +47,13 @@ Input = (function(superClass) {
   Input.prototype._bind = function() {
     this.textField.on('click', (function(_this) {
       return function(e) {
+        if (_this.disabled) {
+          return;
+        }
         return _this.trigger('click');
       };
     })(this));
-    return this.textField.on('input', (function(_this) {
+    this.textField.on('input', (function(_this) {
       return function(e) {
         if (_this._inputTimer) {
           clearTimeout(_this._inputTimer);
@@ -59,6 +62,17 @@ Input = (function(superClass) {
         return _this._inputTimer = setTimeout(function() {
           return _this.trigger('change', [_this.textField.val()]);
         }, 400);
+      };
+    })(this));
+    return this.textField.on('keydown', (function(_this) {
+      return function(e) {
+        var ref;
+        if (_this.disabled) {
+          return;
+        }
+        if ((ref = e.which) === 13 || ref === 38 || ref === 40) {
+          return _this.trigger('click');
+        }
       };
     })(this));
   };
@@ -76,6 +90,15 @@ Input = (function(superClass) {
     this.active = active;
     this.textField.toggleClass('active', active);
     return this.active;
+  };
+
+  Input.prototype.setDisabled = function(disabled) {
+    if (disabled === this.disabled) {
+      return;
+    }
+    this.el.toggleClass('disabled', disabled);
+    this.textField.prop('disabled', disabled);
+    return this.disabled = disabled;
   };
 
   Input.prototype.destroy = function() {
@@ -629,6 +652,9 @@ QingDatepicker = (function(superClass) {
       this.opts.renderer.call(this, this.wrapper, this);
     }
     this.setDate(moment(this.el.val(), this.opts.format));
+    if (this.el.prop('disabled')) {
+      this.disable();
+    }
   }
 
   QingDatepicker.prototype._render = function() {
@@ -707,6 +733,16 @@ QingDatepicker = (function(superClass) {
 
   QingDatepicker.prototype.getDate = function() {
     return this.date;
+  };
+
+  QingDatepicker.prototype.disable = function() {
+    this.el.prop('disabled', true);
+    return this.input.setDisabled(true);
+  };
+
+  QingDatepicker.prototype.enable = function() {
+    this.el.prop('disabled', false);
+    return this.input.setDisabled(false);
   };
 
   QingDatepicker.prototype.destroy = function() {

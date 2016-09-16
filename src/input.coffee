@@ -23,6 +23,7 @@ class Input extends QingModule
 
   _bind: ->
     @textField.on 'click', (e) =>
+      return if @disabled
       @trigger 'click'
 
     @textField.on 'input', (e) =>
@@ -33,6 +34,11 @@ class Input extends QingModule
       @_inputTimer = setTimeout =>
         @trigger 'change', [@textField.val()]
       , 400
+
+    @textField.on 'keydown', (e) =>
+      return if @disabled
+      if e.which in [13, 38, 40]
+        @trigger 'click'
 
   setValue: (value) ->
     @textField.val value
@@ -45,6 +51,12 @@ class Input extends QingModule
     @active = active
     @textField.toggleClass 'active', active
     @active
+
+  setDisabled: (disabled) ->
+    return if disabled == @disabled
+    @el.toggleClass 'disabled', disabled
+    @textField.prop 'disabled', disabled
+    @disabled = disabled
 
   destroy: ->
     @el.remove()
