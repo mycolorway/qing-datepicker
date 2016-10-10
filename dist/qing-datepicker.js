@@ -731,7 +731,7 @@ QingDatepicker = (function(superClass) {
       placeholder: this.opts.placeholder || this.el.attr('placeholder') || ''
     });
     return this.popover = new Popover({
-      appendTo: this.opts.appendTo,
+      appendTo: this.opts.popoverAppendTo,
       locales: this.locales
     });
   };
