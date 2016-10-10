@@ -110,12 +110,14 @@ class QingDatepicker extends QingModule
       @el.val ''
       @date = null
       @trigger 'change', [@date]
-    if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
-      @input.setValue date.format(@opts.displayFormat)
-      @el.val date.format(@opts.format)
-      @date = date
-      @trigger 'change', [@date.clone()]
-    @date
+    else
+      date = moment(date, @opts.format) unless moment.isMoment(date)
+      if date.isValid() && !date.isSame(@date)
+        @input.setValue date.format(@opts.displayFormat)
+        @el.val date.format(@opts.format)
+        @date = date
+        @trigger 'change', [@date.clone()]
+    @
 
   getDate: ->
     @date

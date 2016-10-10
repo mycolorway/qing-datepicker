@@ -798,14 +798,18 @@ QingDatepicker = (function(superClass) {
       this.el.val('');
       this.date = null;
       this.trigger('change', [this.date]);
+    } else {
+      if (!moment.isMoment(date)) {
+        date = moment(date, this.opts.format);
+      }
+      if (date.isValid() && !date.isSame(this.date)) {
+        this.input.setValue(date.format(this.opts.displayFormat));
+        this.el.val(date.format(this.opts.format));
+        this.date = date;
+        this.trigger('change', [this.date.clone()]);
+      }
     }
-    if (moment.isMoment(date) && date.isValid() && !date.isSame(this.date)) {
-      this.input.setValue(date.format(this.opts.displayFormat));
-      this.el.val(date.format(this.opts.format));
-      this.date = date;
-      this.trigger('change', [this.date.clone()]);
-    }
-    return this.date;
+    return this;
   };
 
   QingDatepicker.prototype.getDate = function() {
