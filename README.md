@@ -79,11 +79,19 @@ Hash, specify locale config, default config is:
 
 __setDate__ (date)
 
-Set value for datepicker, only momentjs object is accepted as param.
+Set value for datepicker, only momentjs object is accepted.
 
 __getDate__ ()
 
 get current selected date as momentjs object.
+
+__setValue__ (value)
+
+Set value by string.
+
+__getValue__
+
+Get value as formatted date string.
 
 __destroy__ ()
 

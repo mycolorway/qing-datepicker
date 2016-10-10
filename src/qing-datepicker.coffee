@@ -46,7 +46,10 @@ class QingDatepicker extends QingModule
     if $.isFunction @opts.renderer
       @opts.renderer.call @, @wrapper, @
 
-    @setDate moment(@el.val(), @opts.format)
+    if value = @el.val() && (date = moment(value, @opts.format)).isValid()
+      @input.setValue date.format(@opts.displayFormat)
+      @date = date
+    
     @disable() if @el.prop('disabled')
 
   _render: ->
@@ -105,22 +108,29 @@ class QingDatepicker extends QingModule
       @el.trigger 'change', [@date]
 
   setDate: (date) ->
-    if !date
-      @input.setValue ''
-      @el.val ''
-      @date = null
-      @trigger 'change', [@date]
-    else
-      date = moment(date, @opts.format) unless moment.isMoment(date)
-      if date.isValid() && !date.isSame(@date)
-        @input.setValue date.format(@opts.displayFormat)
-        @el.val date.format(@opts.format)
-        @date = date
-        @trigger 'change', [@date.clone()]
+    if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
+      @input.setValue date.format(@opts.displayFormat)
+      @el.val date.format(@opts.format)
+      @date = date
+      @trigger 'change', [@date.clone()]
     @
 
   getDate: ->
     @date
+
+  setValue: (value) ->
+    if value
+      date = moment(date, @opts.format)
+      @setDate date
+    else
+      @input.setValue ''
+      @el.val ''
+      @date = null
+      @trigger 'change', [@date]
+    @
+
+  getValue: ->
+    @el.val()
 
   disable: ->
     @el.prop 'disabled', true

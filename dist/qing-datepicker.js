@@ -693,7 +693,7 @@ QingDatepicker = (function(superClass) {
   };
 
   QingDatepicker.prototype._init = function() {
-    var initialized;
+    var date, initialized, value;
     this.el = $(this.opts.el);
     if (!(this.el.length > 0)) {
       throw new Error('QingDatepicker: option el is required');
@@ -710,7 +710,10 @@ QingDatepicker = (function(superClass) {
     if ($.isFunction(this.opts.renderer)) {
       this.opts.renderer.call(this, this.wrapper, this);
     }
-    this.setDate(moment(this.el.val(), this.opts.format));
+    if (value = this.el.val() && (date = moment(value, this.opts.format)).isValid()) {
+      this.input.setValue(date.format(this.opts.displayFormat));
+      this.date = date;
+    }
     if (this.el.prop('disabled')) {
       return this.disable();
     }
@@ -793,27 +796,35 @@ QingDatepicker = (function(superClass) {
   };
 
   QingDatepicker.prototype.setDate = function(date) {
-    if (!date) {
-      this.input.setValue('');
-      this.el.val('');
-      this.date = null;
-      this.trigger('change', [this.date]);
-    } else {
-      if (!moment.isMoment(date)) {
-        date = moment(date, this.opts.format);
-      }
-      if (date.isValid() && !date.isSame(this.date)) {
-        this.input.setValue(date.format(this.opts.displayFormat));
-        this.el.val(date.format(this.opts.format));
-        this.date = date;
-        this.trigger('change', [this.date.clone()]);
-      }
+    if (moment.isMoment(date) && date.isValid() && !date.isSame(this.date)) {
+      this.input.setValue(date.format(this.opts.displayFormat));
+      this.el.val(date.format(this.opts.format));
+      this.date = date;
+      this.trigger('change', [this.date.clone()]);
     }
     return this;
   };
 
   QingDatepicker.prototype.getDate = function() {
     return this.date;
+  };
+
+  QingDatepicker.prototype.setValue = function(value) {
+    var date;
+    if (value) {
+      date = moment(date, this.opts.format);
+      this.setDate(date);
+    } else {
+      this.input.setValue('');
+      this.el.val('');
+      this.date = null;
+      this.trigger('change', [this.date]);
+    }
+    return this;
+  };
+
+  QingDatepicker.prototype.getValue = function() {
+    return this.el.val();
   };
 
   QingDatepicker.prototype.disable = function() {
