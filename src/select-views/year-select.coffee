@@ -5,9 +5,12 @@ class YearSelect extends SelectView
   @opts:
     locales: null
 
-  constructor: (opts) ->
+  _setOptions: (opts) ->
     super
-    @opts = $.extend {}, YearSelect.opts, @opts
+    $.extend @opts, YearSelect.opts, opts
+
+  _init: ->
+    super
     @year = moment().year()
     @currentYear = @year
 

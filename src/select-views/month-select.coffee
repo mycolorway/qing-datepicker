@@ -2,7 +2,7 @@ SelectView = require './select-view.coffee'
 
 class MonthSelect extends SelectView
 
-  constructor: (opts) ->
+  _init: ->
     super
     @month = moment().startOf 'month'
     @year = moment().year()

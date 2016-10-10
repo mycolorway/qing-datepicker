@@ -8,9 +8,11 @@ class Popover extends QingModule
     wrapper: null
     locales: null
 
-  constructor: (opts) ->
+  _setOptions: (opts) ->
     super
-    @opts = $.extend {}, Popover.opts, @opts
+    $.extend @opts, Popover.opts, opts
+
+  _init: ->
     @wrapper = $ @opts.wrapper
     @active = false
     @_render()

@@ -24,9 +24,11 @@ class QingDatepicker extends QingModule
 
   @count: 0
 
-  constructor: (opts) ->
+  _setOptions: (opts) ->
     super
+    $.extend @opts, QingDatepicker.opts, opts
 
+  _init: ->
     @el = $ @opts.el
     unless @el.length > 0
       throw new Error 'QingDatepicker: option el is required'
@@ -34,7 +36,6 @@ class QingDatepicker extends QingModule
     if (initialized = @el.data('qingDatepicker'))
       return initialized
 
-    $.extend @opts, QingDatepicker.opts, opts
     @inputFormats = @opts.inputFormats
     @locales = @opts.locales || QingDatepicker.locales
     @id = ++ QingDatepicker.count
@@ -49,7 +50,7 @@ class QingDatepicker extends QingModule
     @disable() if @el.prop('disabled')
 
   _render: ->
-    @wrapper = $ '<div class="qing-datepicker"></div>'
+    @wrapper = $('<div class="qing-datepicker"></div>')
       .data 'qingDatepicker', @
       .insertBefore @el
       .append @el
@@ -80,6 +81,11 @@ class QingDatepicker extends QingModule
         @popover.setActive true
         @input.setActive true
 
+    @input.on 'clearClick', =>
+      @setDate ''
+      @popover.setActive false
+      @input.setActive false
+
     @input.on 'change', (e, value) =>
       date = moment value, @inputFormats, true
       if date.isValid()
@@ -95,13 +101,21 @@ class QingDatepicker extends QingModule
       @popover.setActive false
       @input.setActive false
 
+    @on 'change', (e) =>
+      @el.trigger 'change', [@date]
+
   setDate: (date) ->
+    if !date
+      @input.setValue ''
+      @el.val ''
+      @date = null
+      @trigger 'change', [@date]
     if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
       @input.setValue date.format(@opts.displayFormat)
       @el.val date.format(@opts.format)
       @date = date
       @trigger 'change', [@date.clone()]
-    date
+    @date
 
   getDate: ->
     @date

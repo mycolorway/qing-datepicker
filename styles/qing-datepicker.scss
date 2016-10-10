@@ -1,9 +1,41 @@
 
 .qing-datepicker {
+  display: inline-block;
   position: relative;
 
-  .text-field {
-    cursor: pointer;
+  $text-field-height: 30px;
+  .input {
+    .text-field {
+      cursor: pointer;
+      height: $text-field-height;
+      width: 200px;
+      box-sizing: border-box;
+      padding: 0 10px;
+    }
+
+    .link-clear {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-style: normal;
+      width: $text-field-height - 2px;
+      height: $text-field-height - 2px;
+      line-height: $text-field-height - 2px;
+      text-align: center;
+      color: #9b9b9b;
+      font-size: 14px;
+      text-decoration: none;
+      outline: none;
+
+      &:hover {
+        color: #4a4a4a;
+      }
+    }
+
+    &.empty .link-clear {
+      display: none;
+    }
   }
 
   .popover {

@@ -3,9 +3,11 @@ class SelectView extends QingModule
   @opts:
     wrapper: null
 
-  constructor: (opts) ->
+  _setOptions: (opts) ->
     super
-    @opts = $.extend {}, SelectView.opts, @opts
+    $.extend @opts, SelectView.opts, opts
+
+  _init: ->
     @wrapper = $ @opts.wrapper
     @active = false
 

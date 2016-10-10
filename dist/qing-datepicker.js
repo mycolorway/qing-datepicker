@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-09-16
+ * Date: 2016-10-10
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -24,23 +24,32 @@ var Input,
 Input = (function(superClass) {
   extend(Input, superClass);
 
+  function Input() {
+    return Input.__super__.constructor.apply(this, arguments);
+  }
+
   Input.opts = {
     wrapper: null,
     placeholder: ''
   };
 
-  function Input(opts) {
-    Input.__super__.constructor.apply(this, arguments);
-    this.opts = $.extend({}, Input.opts, this.opts);
+  Input.prototype._setOptions = function(opts) {
+    Input.__super__._setOptions.apply(this, arguments);
+    return $.extend(this.opts, Input.opts, opts);
+  };
+
+  Input.prototype._init = function() {
     this.wrapper = $(this.opts.wrapper);
     this.active = false;
+    this.empty = true;
     this._render();
-    this._bind();
-  }
+    return this._bind();
+  };
 
   Input.prototype._render = function() {
-    this.el = $('<div class="input">');
+    this.el = $('<div class="input empty">');
     this.textField = $('<input type="text" class="text-field" readonly>').attr('placeholder', this.opts.placeholder).appendTo(this.el);
+    this.linkClear = $('<a class="link-clear" href="javascript:;" tabindex="-1">\n  &#10005;\n</a>').appendTo(this.el);
     return this.el.appendTo(this.wrapper);
   };
 
@@ -64,7 +73,7 @@ Input = (function(superClass) {
         }, 400);
       };
     })(this));
-    return this.textField.on('keydown', (function(_this) {
+    this.textField.on('keydown', (function(_this) {
       return function(e) {
         var ref;
         if (_this.disabled) {
@@ -75,10 +84,17 @@ Input = (function(superClass) {
         }
       };
     })(this));
+    return this.linkClear.on('click', (function(_this) {
+      return function(e) {
+        _this.trigger('clearClick');
+        return false;
+      };
+    })(this));
   };
 
   Input.prototype.setValue = function(value) {
     this.textField.val(value);
+    this.setEmpty(!value);
     return value;
   };
 
@@ -90,6 +106,12 @@ Input = (function(superClass) {
     this.active = active;
     this.textField.toggleClass('active', active);
     return this.active;
+  };
+
+  Input.prototype.setEmpty = function(empty) {
+    this.empty = empty;
+    this.el.toggleClass('empty', empty);
+    return this.empty;
   };
 
   Input.prototype.setDisabled = function(disabled) {
@@ -125,14 +147,21 @@ YearSelect = require('./select-views/year-select.coffee');
 Popover = (function(superClass) {
   extend(Popover, superClass);
 
+  function Popover() {
+    return Popover.__super__.constructor.apply(this, arguments);
+  }
+
   Popover.opts = {
     wrapper: null,
     locales: null
   };
 
-  function Popover(opts) {
-    Popover.__super__.constructor.apply(this, arguments);
-    this.opts = $.extend({}, Popover.opts, this.opts);
+  Popover.prototype._setOptions = function(opts) {
+    Popover.__super__._setOptions.apply(this, arguments);
+    return $.extend(this.opts, Popover.opts, opts);
+  };
+
+  Popover.prototype._init = function() {
     this.wrapper = $(this.opts.wrapper);
     this.active = false;
     this._render();
@@ -146,8 +175,8 @@ Popover = (function(superClass) {
       wrapper: this.el,
       locales: this.opts.locales
     });
-    this._bind();
-  }
+    return this._bind();
+  };
 
   Popover.prototype._render = function() {
     return this.el = $('<div class="popover"></div>').appendTo(this.wrapper);
@@ -250,11 +279,15 @@ SelectView = require('./select-view.coffee');
 DateSelect = (function(superClass) {
   extend(DateSelect, superClass);
 
-  function DateSelect(opts) {
-    DateSelect.__super__.constructor.apply(this, arguments);
-    this.date = moment().startOf('day');
-    this.month = moment().startOf('month');
+  function DateSelect() {
+    return DateSelect.__super__.constructor.apply(this, arguments);
   }
+
+  DateSelect.prototype._init = function() {
+    DateSelect.__super__._init.apply(this, arguments);
+    this.date = moment().startOf('day');
+    return this.month = moment().startOf('month');
+  };
 
   DateSelect.prototype._render = function() {
     DateSelect.__super__._render.apply(this, arguments);
@@ -383,11 +416,15 @@ SelectView = require('./select-view.coffee');
 MonthSelect = (function(superClass) {
   extend(MonthSelect, superClass);
 
-  function MonthSelect(opts) {
-    MonthSelect.__super__.constructor.apply(this, arguments);
-    this.month = moment().startOf('month');
-    this.year = moment().year();
+  function MonthSelect() {
+    return MonthSelect.__super__.constructor.apply(this, arguments);
   }
+
+  MonthSelect.prototype._init = function() {
+    MonthSelect.__super__._init.apply(this, arguments);
+    this.month = moment().startOf('month');
+    return this.year = moment().year();
+  };
 
   MonthSelect.prototype._render = function() {
     MonthSelect.__super__._render.apply(this, arguments);
@@ -480,18 +517,25 @@ var SelectView,
 SelectView = (function(superClass) {
   extend(SelectView, superClass);
 
+  function SelectView() {
+    return SelectView.__super__.constructor.apply(this, arguments);
+  }
+
   SelectView.opts = {
     wrapper: null
   };
 
-  function SelectView(opts) {
-    SelectView.__super__.constructor.apply(this, arguments);
-    this.opts = $.extend({}, SelectView.opts, this.opts);
+  SelectView.prototype._setOptions = function(opts) {
+    SelectView.__super__._setOptions.apply(this, arguments);
+    return $.extend(this.opts, SelectView.opts, opts);
+  };
+
+  SelectView.prototype._init = function() {
     this.wrapper = $(this.opts.wrapper);
     this.active = false;
     this._render();
-    this._bind();
-  }
+    return this._bind();
+  };
 
   SelectView.prototype._render = function() {
     this.el = $("<div class=\"select-view\">\n  <div class=\"top-bar\">\n    <a href=\"javascript:;\" class=\"link-prev\">&lt;</a>\n    <span class=\"title\">\n    </span>\n    <a href=\"javascript:;\" class=\"link-next\">&gt;</a>\n  </div>\n  <div class=\"select-grid\"></div>\n</div>").appendTo(this.wrapper);
@@ -525,16 +569,24 @@ SelectView = require('./select-view.coffee');
 YearSelect = (function(superClass) {
   extend(YearSelect, superClass);
 
+  function YearSelect() {
+    return YearSelect.__super__.constructor.apply(this, arguments);
+  }
+
   YearSelect.opts = {
     locales: null
   };
 
-  function YearSelect(opts) {
-    YearSelect.__super__.constructor.apply(this, arguments);
-    this.opts = $.extend({}, YearSelect.opts, this.opts);
+  YearSelect.prototype._setOptions = function(opts) {
+    YearSelect.__super__._setOptions.apply(this, arguments);
+    return $.extend(this.opts, YearSelect.opts, opts);
+  };
+
+  YearSelect.prototype._init = function() {
+    YearSelect.__super__._init.apply(this, arguments);
     this.year = moment().year();
-    this.currentYear = this.year;
-  }
+    return this.currentYear = this.year;
+  };
 
   YearSelect.prototype._render = function() {
     YearSelect.__super__._render.apply(this, arguments);
@@ -614,6 +666,10 @@ Popover = require('./popover.coffee');
 QingDatepicker = (function(superClass) {
   extend(QingDatepicker, superClass);
 
+  function QingDatepicker() {
+    return QingDatepicker.__super__.constructor.apply(this, arguments);
+  }
+
   QingDatepicker.name = 'QingDatepicker';
 
   QingDatepicker.opts = {
@@ -631,9 +687,13 @@ QingDatepicker = (function(superClass) {
 
   QingDatepicker.count = 0;
 
-  function QingDatepicker(opts) {
+  QingDatepicker.prototype._setOptions = function(opts) {
+    QingDatepicker.__super__._setOptions.apply(this, arguments);
+    return $.extend(this.opts, QingDatepicker.opts, opts);
+  };
+
+  QingDatepicker.prototype._init = function() {
     var initialized;
-    QingDatepicker.__super__.constructor.apply(this, arguments);
     this.el = $(this.opts.el);
     if (!(this.el.length > 0)) {
       throw new Error('QingDatepicker: option el is required');
@@ -641,7 +701,6 @@ QingDatepicker = (function(superClass) {
     if ((initialized = this.el.data('qingDatepicker'))) {
       return initialized;
     }
-    $.extend(this.opts, QingDatepicker.opts, opts);
     this.inputFormats = this.opts.inputFormats;
     this.locales = this.opts.locales || QingDatepicker.locales;
     this.id = ++QingDatepicker.count;
@@ -653,9 +712,9 @@ QingDatepicker = (function(superClass) {
     }
     this.setDate(moment(this.el.val(), this.opts.format));
     if (this.el.prop('disabled')) {
-      this.disable();
+      return this.disable();
     }
-  }
+  };
 
   QingDatepicker.prototype._render = function() {
     this.wrapper = $('<div class="qing-datepicker"></div>').data('qingDatepicker', this).insertBefore(this.el).append(this.el);
@@ -695,6 +754,13 @@ QingDatepicker = (function(superClass) {
         }
       };
     })(this));
+    this.input.on('clearClick', (function(_this) {
+      return function() {
+        _this.setDate('');
+        _this.popover.setActive(false);
+        return _this.input.setActive(false);
+      };
+    })(this));
     this.input.on('change', (function(_this) {
       return function(e, value) {
         var date;
@@ -712,23 +778,34 @@ QingDatepicker = (function(superClass) {
         });
       };
     })(this));
-    return this.popover.on('select', (function(_this) {
+    this.popover.on('select', (function(_this) {
       return function(e, date) {
         _this.setDate(date);
         _this.popover.setActive(false);
         return _this.input.setActive(false);
       };
     })(this));
+    return this.on('change', (function(_this) {
+      return function(e) {
+        return _this.el.trigger('change', [_this.date]);
+      };
+    })(this));
   };
 
   QingDatepicker.prototype.setDate = function(date) {
+    if (!date) {
+      this.input.setValue('');
+      this.el.val('');
+      this.date = null;
+      this.trigger('change', [this.date]);
+    }
     if (moment.isMoment(date) && date.isValid() && !date.isSame(this.date)) {
       this.input.setValue(date.format(this.opts.displayFormat));
       this.el.val(date.format(this.opts.format));
       this.date = date;
       this.trigger('change', [this.date.clone()]);
     }
-    return date;
+    return this.date;
   };
 
   QingDatepicker.prototype.getDate = function() {
