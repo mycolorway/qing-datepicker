@@ -153,6 +153,7 @@ Popover = (function(superClass) {
 
   Popover.opts = {
     wrapper: null,
+    appendTo: 'body',
     locales: null
   };
 
@@ -162,7 +163,6 @@ Popover = (function(superClass) {
   };
 
   Popover.prototype._init = function() {
-    this.wrapper = $(this.opts.wrapper);
     this.active = false;
     this._render();
     this.dateSelect = new DateSelect({
@@ -179,7 +179,7 @@ Popover = (function(superClass) {
   };
 
   Popover.prototype._render = function() {
-    return this.el = $('<div class="popover"></div>').appendTo(this.wrapper);
+    return this.el = $('<div class="qing-datepicker-popover"></div>').appendTo(this.opts.appendTo);
   };
 
   Popover.prototype._bind = function() {
@@ -680,6 +680,7 @@ QingDatepicker = (function(superClass) {
     inputFormats: ['YYYY-M-D', 'M/D/YY', 'YYYY年M月D日', 'YYYY.M.D', 'YYYY/M/D'],
     renderer: null,
     popoverOffset: 6,
+    popoverAppendTo: 'body',
     locales: {
       selectYear: 'Select Year'
     }
@@ -730,7 +731,7 @@ QingDatepicker = (function(superClass) {
       placeholder: this.opts.placeholder || this.el.attr('placeholder') || ''
     });
     return this.popover = new Popover({
-      wrapper: this.wrapper,
+      appendTo: this.opts.appendTo,
       locales: this.locales
     });
   };
@@ -759,7 +760,7 @@ QingDatepicker = (function(superClass) {
     })(this));
     this.input.on('clearClick', (function(_this) {
       return function() {
-        _this.setDate('');
+        _this.setValue('');
         _this.popover.setActive(false);
         return _this.input.setActive(false);
       };
@@ -776,8 +777,14 @@ QingDatepicker = (function(superClass) {
     })(this));
     this.popover.on('show', (function(_this) {
       return function(e) {
+        var inputOffset, offsetLeft, offsetTop, wrapperOffset;
+        inputOffset = _this.input.el.offset();
+        wrapperOffset = _this.popover.el.offsetParent().offset();
+        offsetTop = inputOffset.top - wrapperOffset.top;
+        offsetLeft = inputOffset.left - wrapperOffset.left;
         return _this.popover.setPosition({
-          top: _this.input.el.outerHeight() + _this.opts.popoverOffset
+          top: offsetTop + _this.input.el.outerHeight() + _this.opts.popoverOffset,
+          left: offsetLeft
         });
       };
     })(this));

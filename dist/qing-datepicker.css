@@ -35,127 +35,128 @@
       color: #4a4a4a; }
   .qing-datepicker .input.empty .link-clear {
     display: none; }
-  .qing-datepicker .popover {
-    display: none;
-    padding: 0 6px 6px;
-    border: 1px solid #dfdfdf;
-    background: #ffffff;
-    position: absolute;
-    top: 0;
-    left: 0; }
-    .qing-datepicker .popover.active {
-      display: block; }
-    .qing-datepicker .popover .top-bar {
+
+.qing-datepicker-popover {
+  display: none;
+  padding: 0 6px 6px;
+  border: 1px solid #dfdfdf;
+  background: #ffffff;
+  position: absolute;
+  top: 0;
+  left: 0; }
+  .qing-datepicker-popover.active {
+    display: block; }
+  .qing-datepicker-popover .top-bar {
+    display: flex;
+    padding: 6px 4px;
+    border-bottom: 1px dotted #dfdfdf; }
+    .qing-datepicker-popover .top-bar .link-prev,
+    .qing-datepicker-popover .top-bar .link-next {
+      display: block;
+      font-size: 16px;
+      line-height: 16px;
+      color: #9b9b9b;
+      padding: 5px 10px;
+      border-radius: 2px;
+      text-decoration: none; }
+      .qing-datepicker-popover .top-bar .link-prev:hover,
+      .qing-datepicker-popover .top-bar .link-next:hover {
+        background: #f6f6f6; }
+    .qing-datepicker-popover .top-bar .title {
+      flex-grow: 1;
       display: flex;
-      padding: 6px 4px;
-      border-bottom: 1px dotted #dfdfdf; }
-      .qing-datepicker .popover .top-bar .link-prev,
-      .qing-datepicker .popover .top-bar .link-next {
+      justify-content: center; }
+      .qing-datepicker-popover .top-bar .title .link-year,
+      .qing-datepicker-popover .top-bar .title .link-month {
         display: block;
-        font-size: 16px;
         line-height: 16px;
-        color: #9b9b9b;
+        color: #333;
+        font-weight: bold;
+        font-size: 16px;
         padding: 5px 10px;
+        margin: 0 2px;
         border-radius: 2px;
         text-decoration: none; }
-        .qing-datepicker .popover .top-bar .link-prev:hover,
-        .qing-datepicker .popover .top-bar .link-next:hover {
+        .qing-datepicker-popover .top-bar .title .link-year:hover,
+        .qing-datepicker-popover .top-bar .title .link-month:hover {
           background: #f6f6f6; }
-      .qing-datepicker .popover .top-bar .title {
-        flex-grow: 1;
-        display: flex;
-        justify-content: center; }
-        .qing-datepicker .popover .top-bar .title .link-year,
-        .qing-datepicker .popover .top-bar .title .link-month {
-          display: block;
-          line-height: 16px;
-          color: #333;
-          font-weight: bold;
-          font-size: 16px;
-          padding: 5px 10px;
-          margin: 0 2px;
-          border-radius: 2px;
-          text-decoration: none; }
-          .qing-datepicker .popover .top-bar .title .link-year:hover,
-          .qing-datepicker .popover .top-bar .title .link-month:hover {
-            background: #f6f6f6; }
-    .qing-datepicker .popover .select-view {
-      display: none; }
-      .qing-datepicker .popover .select-view.active {
-        display: block; }
-      .qing-datepicker .popover .select-view .select-grid {
-        width: 210px; }
-        .qing-datepicker .popover .select-view .select-grid .grid-item {
-          display: block;
-          width: 26px;
-          height: 26px;
-          margin: 2px;
-          line-height: 26px;
-          color: #333;
-          font-size: 14px;
-          text-align: center;
-          text-decoration: none;
-          box-sizing: border-box; }
-          .qing-datepicker .popover .select-view .select-grid .grid-item.minor {
-            color: #cccccc; }
-          .qing-datepicker .popover .select-view .select-grid .grid-item.current {
-            font-weight: bold; }
-          .qing-datepicker .popover .select-view .select-grid .grid-item:hover {
-            background: #f6f6f6; }
-          .qing-datepicker .popover .select-view .select-grid .grid-item.selected {
-            background: #4a4a4a;
-            color: #ffffff; }
-    .qing-datepicker .popover .date-select .select-grid {
+  .qing-datepicker-popover .select-view {
+    display: none; }
+    .qing-datepicker-popover .select-view.active {
       display: block; }
-      .qing-datepicker .popover .date-select .select-grid .weekdays {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: wrap;
-        border-bottom: 1px dotted #dfdfdf; }
-        .qing-datepicker .popover .date-select .select-grid .weekdays span {
-          display: block;
-          width: 26px;
-          height: 26px;
-          margin: 2px;
-          line-height: 26px;
-          text-align: center;
-          color: #333;
-          font-size: 14px; }
-      .qing-datepicker .popover .date-select .select-grid .days {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-wrap: wrap;
-        margin: 4px 0 0 0; }
-      .qing-datepicker .popover .date-select .select-grid .link-day {
-        width: 26px; }
-    .qing-datepicker .popover .month-select .select-grid {
+    .qing-datepicker-popover .select-view .select-grid {
+      width: 210px; }
+      .qing-datepicker-popover .select-view .select-grid .grid-item {
+        display: block;
+        width: 26px;
+        height: 26px;
+        margin: 2px;
+        line-height: 26px;
+        color: #333;
+        font-size: 14px;
+        text-align: center;
+        text-decoration: none;
+        box-sizing: border-box; }
+        .qing-datepicker-popover .select-view .select-grid .grid-item.minor {
+          color: #cccccc; }
+        .qing-datepicker-popover .select-view .select-grid .grid-item.current {
+          font-weight: bold; }
+        .qing-datepicker-popover .select-view .select-grid .grid-item:hover {
+          background: #f6f6f6; }
+        .qing-datepicker-popover .select-view .select-grid .grid-item.selected {
+          background: #4a4a4a;
+          color: #ffffff; }
+  .qing-datepicker-popover .date-select .select-grid {
+    display: block; }
+    .qing-datepicker-popover .date-select .select-grid .weekdays {
+      display: flex;
+      justify-content: center;
+      align-content: center;
+      flex-wrap: wrap;
+      border-bottom: 1px dotted #dfdfdf; }
+      .qing-datepicker-popover .date-select .select-grid .weekdays span {
+        display: block;
+        width: 26px;
+        height: 26px;
+        margin: 2px;
+        line-height: 26px;
+        text-align: center;
+        color: #333;
+        font-size: 14px; }
+    .qing-datepicker-popover .date-select .select-grid .days {
       display: flex;
       justify-content: center;
       align-content: center;
       flex-wrap: wrap;
       margin: 4px 0 0 0; }
-      .qing-datepicker .popover .month-select .select-grid .link-month {
-        width: 66px;
-        height: 30px;
-        line-height: 30px; }
-    .qing-datepicker .popover .year-select .top-bar .title {
-      display: block;
-      line-height: 16px;
-      color: #333;
-      font-weight: bold;
-      font-size: 16px;
-      text-align: center;
-      padding: 5px 10px;
-      margin: 0 2px; }
-    .qing-datepicker .popover .year-select .select-grid {
-      display: flex;
-      justify-content: center;
-      align-content: center;
-      flex-wrap: wrap;
-      margin: 4px 0 0 0; }
-      .qing-datepicker .popover .year-select .select-grid .link-year {
-        width: 66px;
-        height: 30px;
-        line-height: 30px; }
+    .qing-datepicker-popover .date-select .select-grid .link-day {
+      width: 26px; }
+  .qing-datepicker-popover .month-select .select-grid {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 4px 0 0 0; }
+    .qing-datepicker-popover .month-select .select-grid .link-month {
+      width: 66px;
+      height: 30px;
+      line-height: 30px; }
+  .qing-datepicker-popover .year-select .top-bar .title {
+    display: block;
+    line-height: 16px;
+    color: #333;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    padding: 5px 10px;
+    margin: 0 2px; }
+  .qing-datepicker-popover .year-select .select-grid {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    margin: 4px 0 0 0; }
+    .qing-datepicker-popover .year-select .select-grid .link-year {
+      width: 66px;
+      height: 30px;
+      line-height: 30px; }

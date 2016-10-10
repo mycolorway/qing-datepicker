@@ -19,6 +19,7 @@ class QingDatepicker extends QingModule
     ]
     renderer: null
     popoverOffset: 6
+    popoverAppendTo: 'body'
     locales:
       selectYear: 'Select Year'
 
@@ -49,7 +50,7 @@ class QingDatepicker extends QingModule
     if value = @el.val() && (date = moment(value, @opts.format)).isValid()
       @input.setValue date.format(@opts.displayFormat)
       @date = date
-    
+
     @disable() if @el.prop('disabled')
 
   _render: ->
@@ -66,7 +67,7 @@ class QingDatepicker extends QingModule
       placeholder: @opts.placeholder || @el.attr('placeholder') || ''
 
     @popover = new Popover
-      wrapper: @wrapper
+      appendTo: @opts.appendTo
       locales: @locales
 
   _bind: ->
@@ -85,7 +86,7 @@ class QingDatepicker extends QingModule
         @input.setActive true
 
     @input.on 'clearClick', =>
-      @setDate ''
+      @setValue ''
       @popover.setActive false
       @input.setActive false
 
@@ -96,8 +97,13 @@ class QingDatepicker extends QingModule
         @popover.setDate @date
 
     @popover.on 'show', (e) =>
+      inputOffset = @input.el.offset()
+      wrapperOffset = @popover.el.offsetParent().offset()
+      offsetTop = inputOffset.top - wrapperOffset.top
+      offsetLeft = inputOffset.left - wrapperOffset.left
       @popover.setPosition
-        top: @input.el.outerHeight() + @opts.popoverOffset
+        top: offsetTop + @input.el.outerHeight() + @opts.popoverOffset
+        left: offsetLeft
 
     @popover.on 'select', (e, date) =>
       @setDate date

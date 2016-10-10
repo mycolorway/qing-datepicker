@@ -6,6 +6,7 @@ class Popover extends QingModule
 
   @opts:
     wrapper: null
+    appendTo: 'body'
     locales: null
 
   _setOptions: (opts) ->
@@ -13,7 +14,6 @@ class Popover extends QingModule
     $.extend @opts, Popover.opts, opts
 
   _init: ->
-    @wrapper = $ @opts.wrapper
     @active = false
     @_render()
 
@@ -30,8 +30,8 @@ class Popover extends QingModule
     @_bind()
 
   _render: ->
-    @el = $ '<div class="popover"></div>'
-      .appendTo @wrapper
+    @el = $ '<div class="qing-datepicker-popover"></div>'
+      .appendTo @opts.appendTo
 
   _bind: ->
     @dateSelect.on 'yearClick', (e, year) =>
