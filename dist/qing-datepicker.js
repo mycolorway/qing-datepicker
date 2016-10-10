@@ -739,7 +739,7 @@ QingDatepicker = (function(superClass) {
   QingDatepicker.prototype._bind = function() {
     $(document).on("click.qing-datepicker-" + this.id, (function(_this) {
       return function(e) {
-        if ($.contains(_this.wrapper[0], e.target)) {
+        if ($.contains(_this.wrapper[0], e.target) || $.contains(_this.popover.el[0], e.target)) {
           return;
         }
         _this.popover.setActive(false);
