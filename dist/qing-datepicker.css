@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-10-10
+ * Date: 2016-11-1
  */
 .qing-datepicker {
   display: inline-block;
@@ -100,6 +100,7 @@
         .qing-datepicker-popover .select-view .select-grid .grid-item.minor {
           color: #cccccc; }
         .qing-datepicker-popover .select-view .select-grid .grid-item.current {
+          background: #f6f6f6;
           font-weight: bold; }
         .qing-datepicker-popover .select-view .select-grid .grid-item:hover {
           background: #f6f6f6; }
