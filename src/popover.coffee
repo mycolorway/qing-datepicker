@@ -89,4 +89,7 @@ class Popover extends QingModule
       top: position.top
       left: position.left || 0
 
+  destroy: ->
+    @el.remove()
+
 module.exports = Popover
