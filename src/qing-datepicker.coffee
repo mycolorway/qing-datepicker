@@ -47,7 +47,7 @@ class QingDatepicker extends QingModule
     if $.isFunction @opts.renderer
       @opts.renderer.call @, @wrapper, @
 
-    if value = @el.val() && (date = moment(value, @opts.format)).isValid()
+    if (value = @el.val()) && (date = moment(value, @opts.format)).isValid()
       @input.setValue date.format(@opts.displayFormat)
       @date = date
 
