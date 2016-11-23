@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-11-5
+ * Date: 2016-11-23
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -781,15 +781,7 @@ QingDatepicker = (function(superClass) {
     })(this));
     this.popover.on('show', (function(_this) {
       return function(e) {
-        var inputOffset, offsetLeft, offsetTop, wrapperOffset;
-        inputOffset = _this.input.el.offset();
-        wrapperOffset = _this.popover.el.offsetParent().offset();
-        offsetTop = inputOffset.top - wrapperOffset.top;
-        offsetLeft = inputOffset.left - wrapperOffset.left;
-        return _this.popover.setPosition({
-          top: offsetTop + _this.input.el.outerHeight() + _this.opts.popoverOffset,
-          left: offsetLeft
-        });
+        return _this.positionPopover();
       };
     })(this));
     this.popover.on('select', (function(_this) {
@@ -804,6 +796,18 @@ QingDatepicker = (function(superClass) {
         return _this.el.trigger('change', [_this.date]);
       };
     })(this));
+  };
+
+  QingDatepicker.prototype.positionPopover = function() {
+    var inputOffset, offsetLeft, offsetTop, wrapperOffset;
+    inputOffset = this.input.el.offset();
+    wrapperOffset = this.popover.el.offsetParent().offset();
+    offsetTop = inputOffset.top - wrapperOffset.top;
+    offsetLeft = inputOffset.left - wrapperOffset.left;
+    return this.popover.setPosition({
+      top: offsetTop + this.input.el.outerHeight() + this.opts.popoverOffset,
+      left: offsetLeft
+    });
   };
 
   QingDatepicker.prototype.setDate = function(date) {

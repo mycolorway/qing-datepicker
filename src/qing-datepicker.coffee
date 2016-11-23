@@ -98,13 +98,7 @@ class QingDatepicker extends QingModule
         @popover.setDate @date
 
     @popover.on 'show', (e) =>
-      inputOffset = @input.el.offset()
-      wrapperOffset = @popover.el.offsetParent().offset()
-      offsetTop = inputOffset.top - wrapperOffset.top
-      offsetLeft = inputOffset.left - wrapperOffset.left
-      @popover.setPosition
-        top: offsetTop + @input.el.outerHeight() + @opts.popoverOffset
-        left: offsetLeft
+      @positionPopover()
 
     @popover.on 'select', (e, date) =>
       @setDate date
@@ -113,6 +107,15 @@ class QingDatepicker extends QingModule
 
     @on 'change', (e) =>
       @el.trigger 'change', [@date]
+
+  positionPopover: ->
+    inputOffset = @input.el.offset()
+    wrapperOffset = @popover.el.offsetParent().offset()
+    offsetTop = inputOffset.top - wrapperOffset.top
+    offsetLeft = inputOffset.left - wrapperOffset.left
+    @popover.setPosition
+      top: offsetTop + @input.el.outerHeight() + @opts.popoverOffset
+      left: offsetLeft
 
   setDate: (date) ->
     if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
