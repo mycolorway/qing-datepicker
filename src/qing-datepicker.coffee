@@ -67,7 +67,7 @@ class QingDatepicker extends QingModule
       placeholder: @opts.placeholder || @el.attr('placeholder') || ''
 
     @popover = new Popover
-      appendTo: @opts.appendTo
+      appendTo: @opts.popoverAppendTo
       locales: @locales
 
   _bind: ->
