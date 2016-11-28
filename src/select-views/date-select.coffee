@@ -26,7 +26,7 @@ class DateSelect extends SelectView
 
   _renderGridHead: ->
     $head = $ '<div class="weekdays">'
-    $.each moment.weekdaysMin(), (i, weekdayName) =>
+    $.each moment.weekdaysMin(true), (i, weekdayName) =>
       $ '<span>',
         class: 'weekday'
         text: weekdayName

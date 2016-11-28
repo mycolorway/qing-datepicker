@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-11-23
+ * Date: 2016-11-28
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -311,7 +311,7 @@ DateSelect = (function(superClass) {
   DateSelect.prototype._renderGridHead = function() {
     var $head;
     $head = $('<div class="weekdays">');
-    $.each(moment.weekdaysMin(), (function(_this) {
+    $.each(moment.weekdaysMin(true), (function(_this) {
       return function(i, weekdayName) {
         return $('<span>', {
           "class": 'weekday',
