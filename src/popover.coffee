@@ -69,7 +69,7 @@ class Popover extends QingModule
     @selectView = selectView
     @selectView
 
-  setDate: (date) ->
+  setDate: (date = new Date()) ->
     @date = moment date
     @dateSelect.setDate @date.clone()
     @setSelectView @dateSelect
