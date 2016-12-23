@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-11-28
+ * Date: 2016-12-23
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -239,6 +239,9 @@ Popover = (function(superClass) {
   };
 
   Popover.prototype.setDate = function(date) {
+    if (date == null) {
+      date = new Date();
+    }
     this.date = moment(date);
     this.dateSelect.setDate(this.date.clone());
     this.setSelectView(this.dateSelect);
