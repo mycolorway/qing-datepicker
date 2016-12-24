@@ -110,12 +110,22 @@ class QingDatepicker extends QingModule
 
   positionPopover: ->
     inputOffset = @input.el.offset()
+    inputHeight = @input.el.outerHeight()
+    inputScrollTop = inputOffset.top - $(window).scrollTop()
     wrapperOffset = @popover.el.offsetParent().offset()
+    wrapperHeight = @popover.el.outerHeight()
     offsetTop = inputOffset.top - wrapperOffset.top
     offsetLeft = inputOffset.left - wrapperOffset.left
-    @popover.setPosition
-      top: offsetTop + @input.el.outerHeight() + @opts.popoverOffset
-      left: offsetLeft
+
+    position =
+      if inputScrollTop + inputHeight + wrapperHeight > $(window).height()
+        top: inputOffset.top - wrapperHeight - @opts.popoverOffset
+        left: offsetLeft
+      else
+        top: offsetTop + inputHeight + @opts.popoverOffset
+        left: offsetLeft
+
+    @popover.setPosition position
 
   setDate: (date) ->
     if moment.isMoment(date) && date.isValid() && !date.isSame(@date)
