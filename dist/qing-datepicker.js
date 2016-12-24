@@ -6,7 +6,7 @@
  * Released under the MIT license
  * http://mycolorway.github.io/qing-datepicker/license.html
  *
- * Date: 2016-12-23
+ * Date: 2016-12-24
  */
 ;(function(root, factory) {
   if (typeof module === 'object' && module.exports) {
@@ -802,15 +802,22 @@ QingDatepicker = (function(superClass) {
   };
 
   QingDatepicker.prototype.positionPopover = function() {
-    var inputOffset, offsetLeft, offsetTop, wrapperOffset;
+    var inputHeight, inputOffset, inputScrollTop, offsetLeft, offsetTop, position, wrapperHeight, wrapperOffset;
     inputOffset = this.input.el.offset();
+    inputHeight = this.input.el.outerHeight();
+    inputScrollTop = inputOffset.top - $(window).scrollTop();
     wrapperOffset = this.popover.el.offsetParent().offset();
+    wrapperHeight = this.popover.el.outerHeight();
     offsetTop = inputOffset.top - wrapperOffset.top;
     offsetLeft = inputOffset.left - wrapperOffset.left;
-    return this.popover.setPosition({
-      top: offsetTop + this.input.el.outerHeight() + this.opts.popoverOffset,
+    position = inputScrollTop + inputHeight + wrapperHeight > $(window).height() ? {
+      top: inputOffset.top - wrapperHeight - this.opts.popoverOffset,
       left: offsetLeft
-    });
+    } : {
+      top: offsetTop + inputHeight + this.opts.popoverOffset,
+      left: offsetLeft
+    };
+    return this.popover.setPosition(position);
   };
 
   QingDatepicker.prototype.setDate = function(date) {
