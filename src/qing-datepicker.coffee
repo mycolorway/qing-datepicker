@@ -140,7 +140,7 @@ class QingDatepicker extends QingModule
 
   setValue: (value) ->
     if value
-      date = moment(date, @opts.format)
+      date = moment(value, @opts.format)
       @setDate date
     else
       @input.setValue ''
